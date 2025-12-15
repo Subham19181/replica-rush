@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import Image from "next/image"
 import { footerContent } from "@/data/landing-page"
 import { ArrowRight, Twitter, Github } from "lucide-react"
 
@@ -16,9 +17,13 @@ export function Footer() {
           {/* Logo & Tagline */}
           <div className="lg:col-span-1 space-y-4">
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600">
-                <span className="text-lg font-bold text-white">A</span>
-              </div>
+              <Image 
+                src="/logo.jpeg" 
+                alt="Agency.io Logo" 
+                width={32} 
+                height={32} 
+                className="rounded-lg object-cover"
+              />
               <span className="text-lg font-bold text-slate-900">{footerContent.logo}</span>
             </div>
             <p className="text-sm text-slate-600 leading-relaxed">{footerContent.tagline}</p>

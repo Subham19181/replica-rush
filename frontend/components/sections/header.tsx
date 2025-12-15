@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { navigationLinks } from "@/data/landing-page"
 import { Menu, X } from "lucide-react"
@@ -28,9 +29,13 @@ export function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600">
-              <span className="text-lg font-bold text-white">A</span>
-            </div>
+            <Image 
+              src="/logo.jpeg" 
+              alt="Agency.io Logo" 
+              width={32} 
+              height={32} 
+              className="rounded-lg object-cover"
+            />
             <span className="text-lg font-bold text-slate-900">Agency.io</span>
           </Link>
 
