@@ -1,94 +1,101 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
 import { navigationLinks } from "@/data/landing-page"
-import { Menu, X } from "lucide-react"
+import {
+  Navbar,
+  NavBody,
+  NavItems,
+  MobileNav,
+  MobileNavHeader,
+  MobileNavMenu,
+  MobileNavToggle,
+  NavbarButton,
+} from "@/components/ui/resizable-navbar"
 
 export function Header() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMobileOpen, setIsMobileOpen] = useState(false)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  const navItems = navigationLinks.map((link) => ({
+    name: link.label,
+    link: link.href,
+  }))
 
   return (
-    <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled ? "bg-white/80 backdrop-blur-lg border-b border-slate-200/50 shadow-sm" : "bg-transparent"
-      }`}
-    >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <Image 
-              src="/logo.jpeg" 
-              alt="Agency.io Logo" 
-              width={32} 
-              height={32} 
+    <Navbar className="top-0">
+      {/* Desktop navbar */}
+      <NavBody>
+        <Link href="/" className="relative z-20 mr-4 flex items-center gap-2 px-2 py-1 text-sm font-normal">
+          <Image
+            src="/logo.jpeg"
+            alt="Agency.io Logo"
+            width={30}
+            height={30}
+            className="rounded-lg object-cover"
+          />
+          <span className="text-base font-semibold text-slate-900">Agency.io</span>
+        </Link>
+
+        <NavItems items={navItems} onItemClick={() => setIsMobileOpen(false)} />
+
+        <div className="hidden items-center gap-3 lg:flex">
+          <NavbarButton
+            href="#cta"
+            variant="dark"
+            className="rounded-full bg-violet-600 text-white hover:bg-violet-700"
+          >
+            Login
+          </NavbarButton>
+        </div>
+      </NavBody>
+
+      {/* Mobile navbar */}
+      <MobileNav>
+        <MobileNavHeader>
+          <Link href="/" className="flex items-center gap-2 px-2 py-1 text-sm font-normal">
+            <Image
+              src="/logo.jpeg"
+              alt="Agency.io Logo"
+              width={28}
+              height={28}
               className="rounded-lg object-cover"
             />
-            <span className="text-lg font-bold text-slate-900">Agency.io</span>
+            <span className="text-base font-semibold text-slate-900">Agency.io</span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navigationLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
+          <MobileNavToggle isOpen={isMobileOpen} onClick={() => setIsMobileOpen((prev) => !prev)} />
+        </MobileNavHeader>
+
+        <MobileNavMenu isOpen={isMobileOpen} onClose={() => setIsMobileOpen(false)}>
+          <div className="flex w-full flex-col gap-3">
+            {navItems.map((item) => (
+              <a
+                key={item.link}
+                href={item.link}
+                className="text-sm font-medium text-slate-700 hover:text-slate-900"
+                onClick={() => setIsMobileOpen(false)}
               >
-                {link.label}
-              </Link>
+                {item.name}
+              </a>
             ))}
-          </nav>
-
-          {/* CTA Button */}
-          <div className="flex items-center gap-4">
-            <Button
-              className="hidden sm:inline-flex bg-violet-600 hover:bg-violet-700 text-white rounded-full px-6"
-              size="default"
-            >
-              Book Call
-            </Button>
-
-            {/* Mobile Menu Button */}
-            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden p-2">
-              {isMobileMenuOpen ? (
-                <X className="h-6 w-6 text-slate-900" />
-              ) : (
-                <Menu className="h-6 w-6 text-slate-900" />
-              )}
-            </button>
           </div>
-        </div>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <nav className="md:hidden py-4 space-y-4">
-            {navigationLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="block text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Button className="w-full bg-violet-600 hover:bg-violet-700 text-white rounded-full">Book Call</Button>
-          </nav>
-        )}
-      </div>
-    </header>
+          <div className="mt-4 flex w-full flex-col gap-3">
+            <NavbarButton
+              href="#work"
+              variant="secondary"
+              className="w-full bg-transparent shadow-none text-slate-700 hover:text-slate-900"
+            >
+              View Work
+            </NavbarButton>
+            <NavbarButton href="#cta" variant="dark" className="w-full">
+              Book Call
+            </NavbarButton>
+          </div>
+        </MobileNavMenu>
+      </MobileNav>
+    </Navbar>
   )
 }

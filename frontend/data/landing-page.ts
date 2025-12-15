@@ -6,7 +6,6 @@ export const navigationLinks = [
 ] as const
 
 export const heroContent = {
-  badge: "Accepting new projects for Q1",
   headline: {
     before: "Turn your expertise into",
     highlight: "AI-powered Reality",
@@ -19,7 +18,7 @@ export const heroContent = {
   },
   socialProof: {
     label: "TRUSTED BY INNOVATIVE TEAMS",
-    companies: ["Company A", "Startup B", "Enterprise C", "Tech D", "Global E"],
+    companies: ["Anindo da", "Piush Da", "Aritra Da", "Amit da", "Santu Da"],
   },
 }
 
@@ -88,6 +87,10 @@ export const processContent = {
 
 export const comparisonContent = {
   headline: "Why choose us?",
+  description:
+    "See how we stack up against traditional agencies and solo freelancers across the things that actually matter.",
+  label: "Value Breakdown",
+  subtitle: "Agency.io vs Alternatives",
   columns: ["CRITERIA", "Agencies", "Freelancers", "Agency.io"],
   rows: [
     {

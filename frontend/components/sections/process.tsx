@@ -37,15 +37,15 @@ export function Process() {
                     <p className="text-slate-600 leading-relaxed">{step.description}</p>
                   </div>
 
+                  {/* Connector dot on timeline */}
+                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:block">
+                    <div className="h-4 w-4 rounded-full bg-violet-600 ring-4 ring-white" />
+                  </div>
+
                   {/* Icon Card */}
-                  <div className={`relative ${isEven ? "lg:order-2" : "lg:order-1"}`}>
+                  <div className={`relative ${isEven ? "lg:order-2 lg:pl-16" : "lg:order-1 lg:pr-16"}`}>
                     <div className="relative inline-flex h-32 w-32 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-50 to-purple-50 border border-violet-100 shadow-lg mx-auto lg:mx-0">
                       <Icon className="h-12 w-12 text-violet-600" />
-                    </div>
-
-                    {/* Connector dot */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:block">
-                      <div className="h-4 w-4 rounded-full bg-violet-600 ring-4 ring-white" />
                     </div>
                   </div>
                 </div>
